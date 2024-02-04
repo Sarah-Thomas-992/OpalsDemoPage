@@ -1,0 +1,878 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8">
+  <title>Opals Demo Page</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Open+Sans:wght@300;400;500;600;700;800&display=swap"
+    rel="stylesheet">
+</head>
+
+<body>
+
+  <header>
+    <div class="header-div">
+      <button id="home-button"><img src="img/house.PNG" alt="house icon" /></button>
+    </div>
+
+  </header>
+
+  <main>
+    <div class="content-wrapper" id="story-div">
+    </div>
+  </main>
+
+  <footer>
+    <div class="footer-div">
+      <button id="music-button"><img src="img/songbirdoff.PNG" alt="quiet songbird icon" /> </button>
+      <button id="read-button"><img src="img/roadrunner.PNG" alt="roadrunner icon" /> </button>
+    </div>
+  </footer>
+
+
+  <script>
+    // Music Button 
+    const audio = new Audio('sounds/desert.mp3');
+    audio.loop = true;
+
+    const musicButton = document.getElementById('music-button');
+    let playing = true;
+
+    musicButton.addEventListener('click', function () {
+      if (playing) {
+        audio.play();
+        playing = false;
+        musicButton.innerHTML = '<img src="img/songbirdon.PNG" alt="singing songbird icon" />';
+      } else {
+        audio.pause();
+        playing = true;
+        musicButton.innerHTML = '<img src="img/songbirdoff.PNG" alt="quiet songbird icon" />';
+      }
+    });
+
+
+    //Story Array
+    const story = [
+      {
+        alignment: 'left',
+        imageSRC: 'img/rincon.jpg',
+        imageALT: 'A Harris Hawk',
+        name: 'Rincón',
+        dialogue: 'All right, tell me how it went.'
+      },
+      {
+        alignment: 'left',
+        imageSRC: 'img/rincon.jpg',
+        imageALT: 'A Harris Hawk',
+        name: 'Rincón',
+        dialogue: 'And please do it without putting me to sleep.'
+      },
+      {
+        alignment: 'right',
+        imageSRC: 'img/knox.jpg',
+        imageALT: 'A Gila Woodpecker',
+        name: 'Knox',
+        dialogue: 'By my calculations that only happened once.'
+      },
+      {
+        alignment: 'right',
+        imageSRC: 'img/knox.jpg',
+        imageALT: 'A Gila Woodpecker',
+        name: 'Knox',
+        dialogue: 'And we were discussing poetry.'
+      },
+      {
+        alignment: 'left',
+        imageSRC: 'img/rincon.jpg',
+        imageALT: 'A Harris Hawk',
+        name: 'Rincón',
+        dialogue: 'Whatever that was, it was not poetry.'
+      },
+      {
+        alignment: 'right',
+        imageSRC: 'img/knox.jpg',
+        imageALT: 'A Gila Woodpecker',
+        name: 'Knox',
+        dialogue: 'Sparrows are well-renowned for their poems, Rincón.  Just because you feel differently-'
+      },
+      {
+        alignment: 'left',
+        imageSRC: 'img/rincon.jpg',
+        imageALT: 'A Harris Hawk',
+        name: 'Rincón',
+        dialogue: 'SPARROWS CANNOT WRITE POEMS!!!'
+      },
+      {
+        alignment: 'right',
+        imageSRC: 'img/knox.jpg',
+        imageALT: 'A Gila Woodpecker',
+        name: 'Knox',
+        dialogue: 'I’m not having this argument again.'
+      },
+      {
+        alignment: 'left',
+        imageSRC: 'img/rincon.jpg',
+        imageALT: 'A Harris Hawk',
+        name: 'Rincón',
+        dialogue: 'Fine. Back to business then. What did they say?'
+      },
+      {
+        alignment: 'right',
+        imageSRC: 'img/knox.jpg',
+        imageALT: 'A Gila Woodpecker',
+        name: 'Knox',
+        dialogue: 'Let’s start at the beginning.'
+      },
+      {
+        alignment: 'left',
+        imageSRC: 'img/rincon.jpg',
+        imageALT: 'A Harris Hawk',
+        name: 'Rincón',
+        dialogue: 'Here we go.'
+      },
+      {
+        alignment: 'right',
+        imageSRC: 'img/knox.jpg',
+        imageALT: 'A Gila Woodpecker',
+        name: 'Knox',
+        dialogue: 'Three years ago you came to me, a wildly successful artist, with a proposition.'
+      },
+      {
+        alignment: 'left',
+        imageSRC: 'img/rincon.jpg',
+        imageALT: 'A Harris Hawk',
+        name: 'Rincón',
+        dialogue: 'Wildly successful? You were carving sculptures out of cactus.'
+      },
+      {
+        alignment: 'right',
+        imageSRC: 'img/knox.jpg',
+        imageALT: 'A Gila Woodpecker',
+        name: 'Knox',
+        dialogue: 'And the critics loved them! Anyway, you came to me with an idea. You wanted to open a mine. Borrow the land from a family of burrowing owls, have me inspect and cut the stones, and then trade them to the elite. Swans, eagles, falcons, anyone who could pay the highest price.'
+      },
+      {
+        alignment: 'left',
+        imageSRC: 'img/rincon.jpg',
+        imageALT: 'A Harris Hawk',
+        name: 'Rincón',
+        dialogue: 'And I did.'
+      },
+      {
+        alignment: 'right',
+        imageSRC: 'img/knox.jpg',
+        imageALT: 'A Gila Woodpecker',
+        name: 'Knox',
+        dialogue: 'And you did. You found the owls and not only convinced them to give up one of their precious caves, but to send one of their family members to help with excavation. You convinced me to abandon my cactuses. And your mine’s gems are now worn on the necks of the elite for hundreds of miles.'
+      },
+      {
+        alignment: 'left',
+        imageSRC: 'img/rincon.jpg',
+        imageALT: 'A Harris Hawk',
+        name: 'Rincón',
+        dialogue: 'I’m aware. You and I have both been here for all that.'
+      },
+      {
+        alignment: 'right',
+        imageSRC: 'img/knox.jpg',
+        imageALT: 'A Gila Woodpecker',
+        name: 'Knox',
+        dialogue: 'It’s been impressive, Rincón. Truly.'
+      },
+      {
+        alignment: 'left',
+        imageSRC: 'img/rincon.jpg',
+        imageALT: 'A Harris Hawk',
+        name: 'Rincón',
+        dialogue: 'It has.'
+      },
+      {
+        alignment: 'right',
+        imageSRC: 'img/knox.jpg',
+        imageALT: 'A Gila Woodpecker',
+        name: 'Knox',
+        dialogue: 'And it’s over.'
+      },
+      {
+        alignment: 'left',
+        imageSRC: 'img/rincon.jpg',
+        imageALT: 'A Harris Hawk',
+        name: 'Rincón',
+        dialogue: 'WHAT?!'
+      },
+      {
+        alignment: 'right',
+        imageSRC: 'img/knox.jpg',
+        imageALT: 'A Gila Woodpecker',
+        name: 'Knox',
+        dialogue: 'It’s over. The owls told me they want their mine back.'
+      },
+      {
+        alignment: 'left',
+        imageSRC: 'img/rincon.jpg',
+        imageALT: 'A Harris Hawk',
+        name: 'Rincón',
+        dialogue: 'And everything you just said? Everything we’ve built?'
+      },
+      {
+        alignment: 'right',
+        imageSRC: 'img/knox.jpg',
+        imageALT: 'A Gila Woodpecker',
+        name: 'Knox',
+        dialogue: 'They don’t feel like it’s enough. The mine produces gemstones, yes. Turquoise, quartz, peridot, etc. But they aren’t particularly rare or valuable. The owls have reached the point they’d rather live in the mine than continue to have it excavated.'
+      },
+      {
+        alignment: 'left',
+        imageSRC: 'img/rincon.jpg',
+        imageALT: 'A Harris Hawk',
+        name: 'Rincón',
+        dialogue: 'They can’t…'
+      },
+      {
+        alignment: 'right',
+        imageSRC: 'img/knox.jpg',
+        imageALT: 'A Gila Woodpecker',
+        name: 'Knox',
+        dialogue: 'They can.'
+      },
+      {
+        alignment: 'left',
+        imageSRC: 'img/rincon.jpg',
+        imageALT: 'A Harris Hawk',
+        name: 'Rincón',
+        dialogue: 'And if we found something rarer? More valuable?'
+      },
+      {
+        alignment: 'right',
+        imageSRC: 'img/knox.jpg',
+        imageALT: 'A Gila Woodpecker',
+        name: 'Knox',
+        dialogue: 'Such as?'
+      },
+      {
+        alignment: 'left',
+        imageSRC: 'img/rincon.jpg',
+        imageALT: 'A Harris Hawk',
+        name: 'Rincón',
+        dialogue: 'Black opals.'
+      },
+      {
+        alignment: 'right',
+        imageSRC: 'img/knox.jpg',
+        imageALT: 'A Gila Woodpecker',
+        name: 'Knox',
+        dialogue: 'No.'
+      },
+      {
+        alignment: 'left',
+        imageSRC: 'img/rincon.jpg',
+        imageALT: 'A Harris Hawk',
+        name: 'Rincón',
+        dialogue: 'Obsidian swears they’re here. Says they call to him.'
+      },
+      {
+        alignment: 'right',
+        imageSRC: 'img/knox.jpg',
+        imageALT: 'A Gila Woodpecker',
+        name: 'Knox',
+        dialogue: 'Obsidian spends too much time underground.'
+      },
+      {
+        alignment: 'left',
+        imageSRC: 'img/rincon.jpg',
+        imageALT: 'A Harris Hawk',
+        name: 'Rincón',
+        dialogue: 'I got that from the fact he says the rocks talk to him. But it doesn’t mean he’s wrong.'
+      },
+      {
+        alignment: 'right',
+        imageSRC: 'img/knox.jpg',
+        imageALT: 'A Gila Woodpecker',
+        name: 'Knox',
+        dialogue: 'Black opals are found east of here, but not in this region. Not in our mine.'
+      },
+      {
+        alignment: 'left',
+        imageSRC: 'img/rincon.jpg',
+        imageALT: 'A Harris Hawk',
+        name: 'Rincón',
+        dialogue: 'Humor me. What if we found some?'
+      },
+      {
+        alignment: 'right',
+        imageSRC: 'img/knox.jpg',
+        imageALT: 'A Gila Woodpecker',
+        name: 'Knox',
+        dialogue: 'We’d all be rich. We’d have a line of swans and eagles half a mile long. Maybe more.  The owls would beg us to keep working.'
+      },
+      {
+        alignment: 'left',
+        imageSRC: 'img/rincon.jpg',
+        imageALT: 'A Harris Hawk',
+        name: 'Rincón',
+        dialogue: '...'
+      },
+      {
+        alignment: 'left',
+        imageSRC: 'img/rincon.jpg',
+        imageALT: 'A Harris Hawk',
+        name: 'Rincón',
+        dialogue: 'Tell them to give me one more year.'
+      },
+      {
+        alignment: 'right',
+        imageSRC: 'img/knox.jpg',
+        imageALT: 'A Gila Woodpecker',
+        name: 'Knox',
+        dialogue: 'Rincón…'
+      },
+      {
+        alignment: 'left',
+        imageSRC: 'img/rincon.jpg',
+        imageALT: 'A Harris Hawk',
+        name: 'Rincón',
+        dialogue: 'One more year. Tell them we’ll find something rare by then.'
+      },
+      {
+        alignment: 'left',
+        imageSRC: 'img/rincon.jpg',
+        imageALT: 'A Harris Hawk',
+        name: 'Rincón',
+        dialogue: 'If we don’t, we’ll all leave.  Without protest.'
+      },
+      {
+        alignment: 'right',
+        imageSRC: 'img/knox.jpg',
+        imageALT: 'A Gila Woodpecker',
+        name: 'Knox',
+        dialogue: 'There’s nothing rare here, Rincón. We’ve looked for years.'
+      },
+      {
+        alignment: 'left',
+        imageSRC: 'img/rincon.jpg',
+        imageALT: 'A Harris Hawk',
+        name: 'Rincón',
+        dialogue: 'And we will look for one more year.'
+      },
+      {
+        alignment: 'left',
+        imageSRC: 'img/rincon.jpg',
+        imageALT: 'A Harris Hawk',
+        name: 'Rincón',
+        dialogue: 'I’m not giving this up, Knox. We’ve invested too much.'
+      },
+      {
+        alignment: 'right',
+        imageSRC: 'img/knox.jpg',
+        imageALT: 'A Gila Woodpecker',
+        name: 'Knox',
+        dialogue: '...'
+      },
+      {
+        alignment: 'right',
+        imageSRC: 'img/knox.jpg',
+        imageALT: 'A Gila Woodpecker',
+        name: 'Knox',
+        dialogue: 'I’ll talk to them tomorrow.'
+      },
+      {
+        alignment: 'left',
+        imageSRC: 'img/rincon.jpg',
+        imageALT: 'A Harris Hawk',
+        name: 'Rincón',
+        dialogue: 'Thank you.'
+      },
+      {
+        alignment: 'right',
+        imageSRC: 'img/knox.jpg',
+        imageALT: 'A Gila Woodpecker',
+        name: 'Knox',
+        dialogue: 'They may say no. And even if they agree, what then?'
+      },
+      {
+        alignment: 'left',
+        imageSRC: 'img/rincon.jpg',
+        imageALT: 'A Harris Hawk',
+        name: 'Rincón',
+        dialogue: 'We keep digging.'
+      },
+      {
+        alignment: 'right',
+        imageSRC: 'img/knox.jpg',
+        imageALT: 'A Gila Woodpecker',
+        name: 'Knox',
+        dialogue: 'You know what they say about doing the same thing and expecting different results.'
+      },
+      {
+        alignment: 'left',
+        imageSRC: 'img/rincon.jpg',
+        imageALT: 'A Harris Hawk',
+        name: 'Rincón',
+        dialogue: 'I do.'
+      },
+      {
+        alignment: 'left',
+        imageSRC: 'img/rincon.jpg',
+        imageALT: 'A Harris Hawk',
+        name: 'Rincón',
+        dialogue: 'Give me some time. I’ll come up with a strategy.'
+      },
+      {
+        alignment: 'right',
+        imageSRC: 'img/knox.jpg',
+        imageALT: 'A Gila Woodpecker',
+        name: 'Knox',
+        dialogue: 'Then it’s good night for me. I’m going to be reading poetry. And sleeping if I feel like it.'
+      },
+      {
+        alignment: 'left',
+        imageSRC: 'img/rincon.jpg',
+        imageALT: 'A Harris Hawk',
+        name: 'Rincón',
+        dialogue: 'Don’t stay up too late.'
+      },
+      {
+        alignment: 'left',
+        imageSRC: 'img/rincon.jpg',
+        imageALT: 'A Harris Hawk',
+        name: 'Rincón',
+        dialogue: 'Can you send Cedro up?'
+      },
+      {
+        alignment: 'right',
+        imageSRC: 'img/knox.jpg',
+        imageALT: 'A Gila Woodpecker',
+        name: 'Knox',
+        dialogue: 'Will do. Good night, Rincón.'
+      },
+      {
+        alignment: 'left',
+        imageSRC: 'img/rincon.jpg',
+        imageALT: 'A Harris Hawk',
+        name: 'Rincón',
+        dialogue: 'Good night.'
+      },
+      {
+        alignment: 'left',
+        imageSRC: 'img/rincon.jpg',
+        imageALT: 'A Harris Hawk',
+        name: 'Rincón',
+        dialogue: '...'
+      },
+      {
+        alignment: 'left',
+        imageSRC: 'img/rincon.jpg',
+        imageALT: 'A Harris Hawk',
+        name: 'Rincón',
+        dialogue: 'Were you listening in?'
+      },
+      {
+        alignment: 'right',
+        imageSRC: 'img/cedro.jpg',
+        imageALT: 'A Harris Hawk',
+        name: 'Cedro',
+        dialogue: 'No. You know I respect you enough not to eavesdrop.'
+      },
+      {
+        alignment: 'left',
+        imageSRC: 'img/rincon.jpg',
+        imageALT: 'A Harris Hawk',
+        name: 'Rincón',
+        dialogue: 'And I love you for it.'
+      },
+      {
+        alignment: 'right',
+        imageSRC: 'img/cedro.jpg',
+        imageALT: 'A Harris Hawk',
+        name: 'Cedro',
+        dialogue: 'It didn’t go well, I take it?'
+      },
+      {
+        alignment: 'left',
+        imageSRC: 'img/rincon.jpg',
+        imageALT: 'A Harris Hawk',
+        name: 'Rincón',
+        dialogue: 'They want the mine back. They say it doesn’t produce enough valuable stones.'
+      },
+      {
+        alignment: 'left',
+        imageSRC: 'img/rincon.jpg',
+        imageALT: 'A Harris Hawk',
+        name: 'Rincón',
+        dialogue: 'Knox is going to ask for one more year. See if we can find something rare.'
+      },
+      {
+        alignment: 'right',
+        imageSRC: 'img/cedro.jpg',
+        imageALT: 'A Harris Hawk',
+        name: 'Cedro',
+        dialogue: 'Don’t tell Obsidian. He’s already obsessed with-'
+      },
+      {
+        alignment: 'left',
+        imageSRC: 'img/rincon.jpg',
+        imageALT: 'A Harris Hawk',
+        name: 'Rincón',
+        dialogue: 'Black opals! I know.'
+      },
+      {
+        alignment: 'left',
+        imageSRC: 'img/rincon.jpg',
+        imageALT: 'A Harris Hawk',
+        name: 'Rincón',
+        dialogue: 'But maybe we should listen to him.'
+      },
+      {
+        alignment: 'right',
+        imageSRC: 'img/cedro.jpg',
+        imageALT: 'A Harris Hawk',
+        name: 'Cedro',
+        dialogue: '...'
+      },
+      {
+        alignment: 'right',
+        imageSRC: 'img/cedro.jpg',
+        imageALT: 'A Harris Hawk',
+        name: 'Cedro',
+        dialogue: 'If they say no, or if we don’t find anything after a year, will you be all right?'
+      },
+      {
+        alignment: 'left',
+        imageSRC: 'img/rincon.jpg',
+        imageALT: 'A Harris Hawk',
+        name: 'Rincón',
+        dialogue: 'Probably not.'
+      },
+      {
+        alignment: 'left',
+        imageSRC: 'img/rincon.jpg',
+        imageALT: 'A Harris Hawk',
+        name: 'Rincón',
+        dialogue: 'This was a ridiculous dream. A hawk, running a mine? What was I thinking?'
+      },
+      {
+        alignment: 'right',
+        imageSRC: 'img/cedro.jpg',
+        imageALT: 'A Harris Hawk',
+        name: 'Cedro',
+        dialogue: 'All dreams are ridiculous. What would be the point of dreaming about something boring?'
+      },
+      {
+        alignment: 'left',
+        imageSRC: 'img/rincon.jpg',
+        imageALT: 'A Harris Hawk',
+        name: 'Rincón',
+        dialogue: 'I could have dreamt something a little more practical at least.'
+      },
+      {
+        alignment: 'right',
+        imageSRC: 'img/cedro.jpg',
+        imageALT: 'A Harris Hawk',
+        name: 'Cedro',
+        dialogue: 'But you like sparkly rocks.'
+      },
+      {
+        alignment: 'left',
+        imageSRC: 'img/rincon.jpg',
+        imageALT: 'A Harris Hawk',
+        name: 'Rincón',
+        dialogue: 'I do.'
+      },
+      {
+        alignment: 'left',
+        imageSRC: 'img/rincon.jpg',
+        imageALT: 'A Harris Hawk',
+        name: 'Rincón',
+        dialogue: 'I like them a lot.'
+      },
+      {
+        alignment: 'right',
+        imageSRC: 'img/cedro.jpg',
+        imageALT: 'A Harris Hawk',
+        name: 'Cedro',
+        dialogue: 'Then I guess we’ve got one year to find the sparkliest rocks we can.'
+      },
+      {
+        alignment: 'left',
+        imageSRC: 'img/rincon.jpg',
+        imageALT: 'A Harris Hawk',
+        name: 'Rincón',
+        dialogue: 'And sell them to the richest birds we can.'
+      },
+      {
+        alignment: 'right',
+        imageSRC: 'img/cedro.jpg',
+        imageALT: 'A Harris Hawk',
+        name: 'Cedro',
+        dialogue: 'You need some sleep too. Don’t you have a customer tomorrow morning?'
+      },
+      {
+        alignment: 'left',
+        imageSRC: 'img/rincon.jpg',
+        imageALT: 'A Harris Hawk',
+        name: 'Rincón',
+        dialogue: 'Don’t remind me. I hate swans.'
+      },
+      {
+        alignment: 'right',
+        imageSRC: 'img/cedro.jpg',
+        imageALT: 'A Harris Hawk',
+        name: 'Cedro',
+        dialogue: 'You can complain about him all you want as soon as he leaves.'
+      },
+      {
+        alignment: 'right',
+        imageSRC: 'img/cedro.jpg',
+        imageALT: 'A Harris Hawk',
+        name: 'Cedro',
+        dialogue: 'Come on. Sleep.'
+      },
+      {
+        alignment: 'left',
+        imageSRC: 'img/rincon.jpg',
+        imageALT: 'A Harris Hawk',
+        name: 'Rincón',
+        dialogue: 'Be there in a minute. I just need a little time to think.'
+      },
+      {
+        alignment: 'right',
+        imageSRC: 'img/cedro.jpg',
+        imageALT: 'A Harris Hawk',
+        name: 'Cedro',
+        dialogue: 'All right. I’ll come back and get you in a hour.'
+      },
+      {
+        alignment: 'left',
+        imageSRC: 'img/rincon.jpg',
+        imageALT: 'A Harris Hawk',
+        name: 'Rincón',
+        dialogue: 'Thanks, love. See you in a bit.'
+      },
+      {
+        alignment: 'left',
+        imageSRC: 'img/rincon.jpg',
+        imageALT: 'A Harris Hawk',
+        name: 'Rincón',
+        dialogue: '...'
+      },
+      {
+        alignment: 'left',
+        imageSRC: 'img/rincon.jpg',
+        imageALT: 'A Harris Hawk',
+        name: 'Rincón',
+        dialogue: 'One year. What am I going to do?'
+      }
+    ]
+
+    //Advance Story Function 
+    let storyClick = 0;
+    const readButton = document.getElementById('read-button');
+    const storyDiv = document.getElementById('story-div');
+
+    readButton.addEventListener('click', advanceStory);
+
+    function advanceStory() {
+      const bigDiv = document.createElement('div');
+      const medDiv = document.createElement('div');
+      const littleDiv = document.createElement('div');
+      const img = document.createElement('img');
+      const nameP = document.createElement('p');
+      const dialogueP = document.createElement('p');
+      const clickValue = story[storyClick];
+
+      if (clickValue.alignment === 'left') {
+        bigDiv.classList.add(clickValue.alignment);
+
+        medDiv.classList.add('speech-blurb');
+
+        img.classList.add('face');
+        img.src = clickValue.imageSRC;
+        img.alt = clickValue.imageALT;
+        medDiv.append(img);
+
+        littleDiv.classList.add('speech-div');
+
+        nameP.classList.add('name');
+        dialogueP.classList.add('dialogue');
+
+        nameP.innerText = clickValue.name;
+        dialogueP.innerText = clickValue.dialogue;
+
+        littleDiv.append(nameP);
+        littleDiv.append(dialogueP);
+
+        medDiv.append(littleDiv);
+
+        bigDiv.append(medDiv);
+
+        storyDiv.append(bigDiv);
+
+        bigDiv.scrollIntoView({behavior:'smooth', block:'end', inline:'nearest'});
+
+        storyClick = storyClick + 1;
+      } else {
+        bigDiv.classList.add(clickValue.alignment);
+
+        medDiv.classList.add('speech-blurb');
+
+        img.classList.add('face');
+        img.src = clickValue.imageSRC;
+        img.alt = clickValue.imageALT;
+
+        littleDiv.classList.add('speech-div');
+
+        nameP.classList.add('name');
+        dialogueP.classList.add('dialogue');
+
+        nameP.innerText = clickValue.name;
+        dialogueP.innerText = clickValue.dialogue;
+
+        littleDiv.append(nameP);
+        littleDiv.append(dialogueP);
+
+        medDiv.append(littleDiv);
+        medDiv.append(img);
+
+        bigDiv.append(medDiv);
+
+        storyDiv.append(bigDiv);
+        
+        bigDiv.scrollIntoView({behavior:'smooth', block:'end', inline:'nearest'});
+
+        storyClick = storyClick + 1;
+      }
+    }
+
+  </script>
+
+  <style>
+    /* Global Styles */
+
+    body {
+      background: url(img/chapter0background.PNG) no-repeat;
+      background-size: 100% 100%;
+      min-height: 100vh;
+      margin: 0;
+      font-family: 'Open Sans', sans-serif;
+      font-size: 16px;
+    }
+
+    header,
+    footer {
+      height: 15vh;
+    }
+
+    button {
+      background: none;
+      border: none;
+    }
+
+    /* Header Styles */
+
+    .header-div {
+      display: flex;
+      justify-content: flex-end;
+      align-items: center;
+      height: 100%;
+    }
+
+    #home-button {
+      margin: 100px 50px;
+      width: 30%;
+    }
+
+    #home-button img {
+      width: 90%;
+    }
+
+    /* Main Styles */
+
+    main {
+      height: 70vh;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+    }
+
+    .content-wrapper {
+      display: flex;
+      flex-direction: column;
+      height: 100%;
+      width: 100%;
+      overflow: scroll;
+    }
+
+    .left {
+      display: flex;
+      justify-content: flex-start;
+      width: 100%;
+    }
+
+    .right {
+      display: flex;
+      justify-content: flex-end;
+      width: 100%;
+    }
+
+    .speech-blurb {
+      display: flex;
+      align-items: center;
+      width: 70%;
+      margin: 10px 20px;
+    }
+
+    .face {
+      width: 25%;
+      border-radius: 10px;
+    }
+
+    .speech-div {
+      width: 70%;
+      background-color: white;
+      opacity: 65%;
+      border-radius: 10px;
+      margin: 10px;
+      padding: 10px;
+    }
+
+    .name {
+      margin: 10px;
+      font-size: 1.6em;
+      font-weight: 800;
+    }
+
+    .dialogue {
+      margin: 10px;
+      font-size: 1.5em;
+      font-weight: 500;
+    }
+
+
+    /* Footer Styles */
+
+    footer {
+      width: 100%;
+      margin: 0;
+    }
+
+    .footer-div {
+      display: flex;
+      justify-content: space-around;
+      align-items: center;
+      height: 100%;
+    }
+
+    #music-button img {
+      width: 50%;
+    }
+
+    #read-button img {
+      width: 80%;
+    }
+  </style>
+
+</body>
+
+</html>
